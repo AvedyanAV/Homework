@@ -10,10 +10,10 @@
 
 ## Установка
 Клонировать репозиторий:
-https://github.com/AvedyanAV/Homework
+```https://github.com/AvedyanAV/Homework```
 
 Установить зависимости:
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 
 Автор
