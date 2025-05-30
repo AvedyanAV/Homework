@@ -1,5 +1,6 @@
 import pytest
-from src.masks import get_mask_card_number, get_mask_account
+
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def test_get_mask_card_number_standard() -> None:
@@ -13,7 +14,7 @@ def len_numbers() -> list:
 
 
 def test_get_mask_card_number_len(len_numbers: str) -> None:
-    """Тест номера карты с длиной меньше или больше 16 символов"""
+    """Тест проверяющий правильность номера карты с длиной меньше или больше 16 символов"""
     assert get_mask_card_number(len_numbers) == "Некорректный номер карты"
 
 
@@ -38,7 +39,7 @@ def len_account() -> list:
 
 
 def test_get_mask_account_len(len_account: int) -> None:
-    """Тест номера счета с длиной меньше или больше 20 символов"""
+    """Тест проверяющий правильность номера счета с длиной меньше или больше 20 символов"""
     assert get_mask_account(len_account) == "Некорректный номер счета"
 
 
