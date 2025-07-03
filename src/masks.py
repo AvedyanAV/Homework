@@ -1,14 +1,24 @@
-def get_mask_card_number(card_number: int) -> str:
-    """Функция возращает номер карты со скрытими символами"""
-    if len(str(card_number)) != 16:
+def get_mask_card_number(card_number: str | int) -> str:
+    """Функция возвращает номер карты со скрытыми символами"""
+    num_str = str(card_number)
+    digits = ''
+    for i in num_str:
+        if i.isdigit():
+            digits += i
+    if len(str(digits)) != 16:
         return "Некорректный номер карты"
 
-    return f"{str(card_number)[:4]} {str(card_number)[4:6]}** **** {str(card_number)[-4:]}"
+    return f"{str(digits)[:4]} {str(digits)[4:6]}** **** {str(digits)[-4:]}"
 
 
 def get_mask_account(account: int) -> str:
-    """Функция возращает номер счета со скрытими символами"""
-    if len(str(account)) != 20:
+    """Функция возвращает номер счета со скрытыми символами"""
+    num_str = str(account)
+    digits = ''
+    for i in num_str:
+        if i.isdigit():
+            digits += i
+    if len(str(digits)) != 20:
         return "Некорректный номер счета"
 
-    return str(f"**{str(account)[-4:]}")
+    return str(f"**{str(digits)[-4:]}")
