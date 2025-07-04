@@ -2,6 +2,8 @@ from datetime import datetime
 
 
 def log(filename=None):
+    """Декоратор логирует начало выполнения функции, её завершение или ошибку.
+    Может выводить логи в консоль или записывать в файл"""
     def decorator(func):
         def wrapper(*args,  **kwargs):
             start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
