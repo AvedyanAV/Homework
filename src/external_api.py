@@ -37,5 +37,8 @@ def get_transaction_amount_in_rub(transaction):
         rate = 1 / rates[currency]
         return round(float(amount) * rate, 2)
 
+    except requests.exceptions.RequestException as e:
+        raise ValueError(f"Ошибка при получении курса валют: {str(e)}")
+
     except KeyError:
         raise ValueError("Не удалось получить курс для указанной валюты")
