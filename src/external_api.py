@@ -1,4 +1,11 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+headers = {"apikey": os.getenv('API_KEY')}
 
 
 def get_transaction_amount_in_rub(transaction):
@@ -7,6 +14,10 @@ def get_transaction_amount_in_rub(transaction):
     Если валюта не RUB, конвертирует по текущему курсу через API.
     """
     try:
+        # Проверка наличия API ключа
+        if not headers.get('apikey'):
+            raise ValueError("API ключ не настроен. Проверьте .env файл")
+
         operation_amount = transaction.get('operationAmount')
         if not operation_amount:
             raise ValueError("Транзакция должна содержать operationAmount")
@@ -27,18 +38,18 @@ def get_transaction_amount_in_rub(transaction):
         if currency not in ('USD', 'EUR'):
             raise ValueError(f"Неподдерживаемая валюта: {currency}")
 
-        response = requests.get(
-            'https://api.exchangerate-api.com/v4/latest/RUB',
-            timeout=10
-        )
-        response.raise_for_status()
-        rates = response.json()['rates']
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
 
-        rate = 1 / rates[currency]
-        return round(float(amount) * rate, 2)
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+
+        result = response.json()
+        if not result.get('success', False):
+            raise ValueError("Ошибка конвертации валюты")
+
+        return float(result['result'])
 
     except requests.exceptions.RequestException as e:
         raise ValueError(f"Ошибка при получении курса валют: {str(e)}")
-
     except KeyError:
         raise ValueError("Не удалось получить курс для указанной валюты")
