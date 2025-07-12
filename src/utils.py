@@ -1,7 +1,7 @@
 import json
 
 
-def load_transactions(file_path):
+def load_transactions(file_path) -> list:
     """
     Загружает данные о финансовых транзакциях из JSON-файла.
     """
@@ -15,10 +15,3 @@ def load_transactions(file_path):
 
     except (FileNotFoundError, json.JSONDecodeError):
         return []
-
-
-if __name__ == '__main__':
-    transactions = load_transactions('data/operations.json')
-    print(transactions)
-
-
