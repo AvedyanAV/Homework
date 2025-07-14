@@ -14,7 +14,6 @@ def get_transaction_amount_in_rub(transaction):
     Если валюта не RUB, конвертирует по текущему курсу через API.
     """
     try:
-        # Проверка наличия API ключа
         if not headers.get('apikey'):
             raise ValueError("API ключ не настроен. Проверьте .env файл")
 
