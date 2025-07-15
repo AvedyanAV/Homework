@@ -7,6 +7,7 @@ import os
 
 headers = {"apikey": os.getenv('API_KEY')}
 
+
 @pytest.fixture
 def rub_transaction():
     return {
